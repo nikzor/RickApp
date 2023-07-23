@@ -8,19 +8,21 @@
 import Moya
 
 protocol NetworkManagerProtocol {
-    func fetchData(completion: @escaping (Result<DataResponseModel, Error>) -> Void)
+    func fetchData(_ page: Int, completion: @escaping (Result<DataResponseModel, Error>) -> Void)
 }
 
 final class NetworkManager: NetworkManagerProtocol {
     private let provider = MoyaProvider<APITarget>()
-
-    func fetchData(completion: @escaping (Result<DataResponseModel, Error>) -> Void) {
-        request(target: .getData, completion: completion)
+    public var isRequesting = false
+    
+    func fetchData(_ page: Int, completion: @escaping (Result<DataResponseModel, Error>) -> Void) {
+        request(target: .getData(page: page), completion: completion)
     }
 }
 
 private extension NetworkManager {
     func request<T: Decodable>(target: APITarget, completion: @escaping (Result<T, Error>) -> Void) {
+        isRequesting = true
         provider.request(target) { result in
             switch result {
             case let .success(response):
@@ -35,6 +37,7 @@ private extension NetworkManager {
             case let .failure(error):
                 completion(.failure(error))
             }
+            self.isRequesting = false
         }
     }
 }
