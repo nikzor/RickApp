@@ -15,7 +15,8 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var characters : [DataResponseModel.Character] = []
     let database = Database()
     var favorites: [FavouriteData] = []
-
+    var page: Int = 1
+    
     lazy var frc: NSFetchedResultsController<SingleCharacter> = {
         let request = SingleCharacter.fetchRequest()
         request.sortDescriptors = []
@@ -32,7 +33,15 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return frc
     }()
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let position = tableView.contentOffset.y
+        if position > tableView.contentSize.height - 100 - scrollView.frame.size.height {
+            fetchData()
+        }
+    }
+    
     override func viewDidLoad() {
+        tableView.backgroundView = UIImageView(image: UIImage(named: "bg"))
         super.viewDidLoad()
         do {
             try frc.performFetch()
@@ -97,13 +106,21 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
 
     private func fetchData() {
+        if(manager.isRequesting) { return }
+        
         if Reachability.shared.isConnectedToNetwork() {
-            manager.fetchData { [weak self] result in
+            manager.fetchData(page) { [weak self] result in
                 switch result {
                 case let .success(response):
-                    self?.characters = response.results
+                    if !(self?.characters.isEmpty ?? true) {
+                        self?.characters.append(contentsOf: response.results)
+                    }
+                    else {
+                        self?.characters = response.results
+                    }
                     self?.saveCharacters(arr: self?.characters ?? [])
                     self?.tableView.reloadData()
+                    self?.page += 1
                 case let .failure(error):
                     print(error)
                     self?.loadCharactersFromCoreData()

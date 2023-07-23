@@ -8,7 +8,7 @@
 import Moya
 
 enum APITarget {
-    case getData
+    case getData(page: Int = 1)
 }
 
 extension APITarget: TargetType {
@@ -32,9 +32,13 @@ extension APITarget: TargetType {
     }
 
     var task: Task {
-        return .requestPlain
+        switch(self) {
+        case let .getData(page):
+            return .requestParameters(parameters: ["page": page], encoding: URLEncoding.queryString)
+        }
     }
-
+    
+    
     var headers: [String: String]? {
         return ["Content-type":"application/json", "Cache-Control":"no-cache"]
     }

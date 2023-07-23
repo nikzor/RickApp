@@ -24,6 +24,7 @@ final class PersonTableViewCell: UITableViewCell {
     }
     
     func setUpData(_ data: DataResponseModel.Character) {
+        self.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         personName.text = data.name
         personSpecies.text = "Species: \(data.species)"
         personStatus.text = "Status: \(data.status)"
