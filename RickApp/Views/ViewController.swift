@@ -12,8 +12,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     @IBOutlet weak var tableView: UITableView!
     
     private let manager = NetworkManager()
-    private var characters : [DataResponseModel.Character] = []
-    
+    var characters : [DataResponseModel.Character] = []
+    let database = Database()
+    var favorites: [FavouriteData] = []
+
     lazy var frc: NSFetchedResultsController<SingleCharacter> = {
         let request = SingleCharacter.fetchRequest()
         request.sortDescriptors = []
@@ -39,6 +41,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         }
         tableView.dataSource = self
         tableView.delegate = self
+        favorites = database.load()
         fetchData()
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -60,7 +63,35 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         personCell.setUpData(celldata)
         return personCell
     }
-    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+            let characterData = characters[indexPath.row]
+            let isFavorite = favorites.contains { $0.userId == characterData.id }
+            let actionTitle = isFavorite ? "Remove from Favorites" : "Add to Favorites"
+            let actionStyle: UIContextualAction.Style = isFavorite ? .destructive : .normal
+            let action = UIContextualAction(style: actionStyle, title: actionTitle) { [weak self] (action, view, completionHandler) in
+                guard let self = self else { return }
+                if isFavorite {
+                    self.favorites.removeAll { $0.userId == characterData.id }
+                } else {
+                    let newFavorite = FavouriteData(userId: characterData.id, characterName: characterData.name, imageString: characterData.image)
+                    self.favorites.append(newFavorite)
+                }
+                
+                self.database.save(items: self.favorites)
+                tableView.reloadRows(at: [indexPath], with: .automatic)
+                completionHandler(true)
+            }
+            
+            if isFavorite {
+                action.backgroundColor = .red
+            } else {
+                action.backgroundColor = .systemMint
+            }
+            
+            let configuration = UISwipeActionsConfiguration(actions: [action])
+            return configuration
+        }
+
     private func fetchData() {
         if Reachability.shared.isConnectedToNetwork() {
             manager.fetchData { [weak self] result in

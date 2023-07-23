@@ -36,6 +36,7 @@ final class PersonTableViewCell: UITableViewCell {
         }
     }
     
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         personName.text = nil

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		030A698D2A5078C6009590B9 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 030A698C2A5078C6009590B9 /* DetailViewController.swift */; };
 		032E0A802A5040460056D1A1 /* PersonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 032E0A7F2A5040460056D1A1 /* PersonTableViewCell.swift */; };
+		0331206D2A6D4D9900FD3F10 /* FavouritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0331206C2A6D4D9900FD3F10 /* FavouritesViewController.swift */; };
+		0331206F2A6D510600FD3F10 /* FavouriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0331206E2A6D510600FD3F10 /* FavouriteTableViewCell.swift */; };
 		035989AE2A4B49C6004822C5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035989AD2A4B49C6004822C5 /* AppDelegate.swift */; };
 		035989B02A4B49C6004822C5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035989AF2A4B49C6004822C5 /* SceneDelegate.swift */; };
 		035989B22A4B49C6004822C5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 035989B12A4B49C6004822C5 /* ViewController.swift */; };
@@ -30,6 +32,8 @@
 /* Begin PBXFileReference section */
 		030A698C2A5078C6009590B9 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		032E0A7F2A5040460056D1A1 /* PersonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonTableViewCell.swift; sourceTree = "<group>"; };
+		0331206C2A6D4D9900FD3F10 /* FavouritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewController.swift; sourceTree = "<group>"; };
+		0331206E2A6D510600FD3F10 /* FavouriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouriteTableViewCell.swift; sourceTree = "<group>"; };
 		035989AA2A4B49C6004822C5 /* RickApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RickApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		035989AD2A4B49C6004822C5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		035989AF2A4B49C6004822C5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -68,8 +72,10 @@
 			isa = PBXGroup;
 			children = (
 				030A698C2A5078C6009590B9 /* DetailViewController.swift */,
+				0331206C2A6D4D9900FD3F10 /* FavouritesViewController.swift */,
 				035989B12A4B49C6004822C5 /* ViewController.swift */,
 				032E0A7F2A5040460056D1A1 /* PersonTableViewCell.swift */,
+				0331206E2A6D510600FD3F10 /* FavouriteTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -282,6 +288,7 @@
 				035989B22A4B49C6004822C5 /* ViewController.swift in Sources */,
 				03D8BA472A6ABF7B007EC8CF /* SingleCharacter+CoreDataClass.swift in Sources */,
 				035989AE2A4B49C6004822C5 /* AppDelegate.swift in Sources */,
+				0331206D2A6D4D9900FD3F10 /* FavouritesViewController.swift in Sources */,
 				030A698D2A5078C6009590B9 /* DetailViewController.swift in Sources */,
 				03C70D6C2A541E4300E24BCE /* NetworkManager.swift in Sources */,
 				03C70D6F2A541F5000E24BCE /* DataResponseModel.swift in Sources */,
@@ -293,6 +300,7 @@
 				03D8BA482A6ABF7B007EC8CF /* SingleCharacter+CoreDataProperties.swift in Sources */,
 				03D9AC792A6D35B80015FB26 /* Database.swift in Sources */,
 				039BADD92A584DF90048F27C /* Reachability.swift in Sources */,
+				0331206F2A6D510600FD3F10 /* FavouriteTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
