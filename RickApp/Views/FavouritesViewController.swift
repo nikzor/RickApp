@@ -34,5 +34,25 @@ class FavouritesViewController: UIViewController, UITableViewDataSource, UITable
         personCell.setUpData(celldata)
         return personCell
     }
-    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let actionTitle = "Remove from Favorites"
+        let actionStyle: UIContextualAction.Style = .destructive
+        let action = UIContextualAction(style: actionStyle, title: actionTitle) { [weak self] (action, view, completionHandler) in
+            guard let self = self else { return }
+            let characterDataToRemove = self.favorites[indexPath.row]
+            
+            self.favorites.remove(at: indexPath.row)
+            
+            self.database.save(items: self.favorites)
+            
+            tableView.deleteRows(at: [indexPath], with: .left)
+            
+            completionHandler(true)
+        }
+        action.backgroundColor = .red
+
+        let configuration = UISwipeActionsConfiguration(actions: [action])
+        return configuration
+    }
+
 }

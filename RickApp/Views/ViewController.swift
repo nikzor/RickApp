@@ -44,6 +44,10 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         favorites = database.load()
         fetchData()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        favorites = database.load()
+    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let detailViewController = storyboard?.instantiateViewController(withIdentifier:"DetailViewController") as? DetailViewController else {
