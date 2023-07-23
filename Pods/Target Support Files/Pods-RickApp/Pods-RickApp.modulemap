@@ -1,0 +1,6 @@
+framework module Pods_RickApp {
+  umbrella header "Pods-RickApp-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,2 @@
+# RickApp
+ An iOS project
