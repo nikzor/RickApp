@@ -39,7 +39,6 @@ class FavouritesViewController: UIViewController, UITableViewDataSource, UITable
         let actionStyle: UIContextualAction.Style = .destructive
         let action = UIContextualAction(style: actionStyle, title: actionTitle) { [weak self] (action, view, completionHandler) in
             guard let self = self else { return }
-            let characterDataToRemove = self.favorites[indexPath.row]
             
             self.favorites.remove(at: indexPath.row)
             
